@@ -1,0 +1,6 @@
+[
+  { "name": "1-cover.png", "query": "?shot=cover&photos=boulevard,pier&caption=Sunset%20Heist&tagline=Every%20city%20has%20a%20price&size=1920x1080&layout=strip3&grade=sunset&intensity=0.85&frame=black", "w": 1920, "h": 1080 },
+  { "name": "2-editor.png", "query": "?shot=editor&photos=boulevard,pier&caption=Boulevard%20Queen&tagline=The%20coast%20is%20her%20runway&size=1920x1080&layout=grid4&grade=sunset", "w": 1280, "h": 720 },
+  { "name": "3-cover-square.png", "query": "?shot=cover&photos=boulevard,pier&caption=Neon%20Getaway&tagline=One%20night.%20One%20score.&size=1080x1080&layout=strip3&grade=neon&intensity=0.8&frame=white&fill=neon", "w": 1080, "h": 1080 },
+  { "name": "4-cover-portrait.png", "query": "?shot=cover&photo=boulevard&caption=Last%20Ride%20Out&tagline=Gas%20full.%20Windows%20down.&size=1080x1350&layout=full&grade=vice&intensity=0.85&fill=sunset", "w": 1080, "h": 1350 }
+]
