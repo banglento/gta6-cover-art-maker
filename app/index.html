@@ -8,116 +8,136 @@
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<div id="app">
-  <header id="topbar">
-    <div class="brand">
-      <span class="brand-main">VICE COVER</span>
-      <span class="brand-sub">multi-panel poster maker</span>
-    </div>
-    <div class="seg" id="sizePicker" role="group" aria-label="Export size">
-      <button data-size="1080x1080" title="Square post">1:1 <small>1080&times;1080</small></button>
-      <button data-size="1080x1350" title="Portrait post">4:5 <small>1080&times;1350</small></button>
-      <button data-size="1920x1080" title="Landscape / story">16:9 <small>1920&times;1080</small></button>
-    </div>
-    <div class="top-actions">
-      <button id="shuffleBtn" class="ghost" title="Random layout, grade and caption">Shuffle</button>
-      <button id="exportBtn" class="cta">Export PNG</button>
-    </div>
-  </header>
 
-  <div id="workspace">
-    <aside id="sidebar">
-      <section>
-        <h2>Photos</h2>
-        <div class="row">
-          <label class="btn file-label" for="fileInput">Add photos&hellip;</label>
-          <input id="fileInput" type="file" accept="image/*" multiple hidden>
-          <button id="sample-boulevard" class="btn">Sample: Boulevard</button>
-          <button id="sample-pier" class="btn">Sample: Pier</button>
-        </div>
-        <div id="thumbs" class="thumbs"></div>
-        <p id="photoEmpty" class="note">No photos yet &mdash; add your own or load a sample. Nothing leaves your device.</p>
-      </section>
-
-      <section>
-        <h2>Layout</h2>
-        <div class="layout-grid" id="layoutPicker">
-          <button data-layout="full" title="One photo, full bleed"><span class="ico ico-full"><i></i></span>Full</button>
-          <button data-layout="split2" title="Two-panel split"><span class="ico ico-split"><i></i><i></i></span>Split</button>
-          <button data-layout="strip3" title="Three-panel comic strip"><span class="ico ico-strip"><i></i><i></i><i></i></span>Strip</button>
-          <button data-layout="grid4" title="Four-panel grid"><span class="ico ico-grid"><i></i><i></i><i></i><i></i></span>Grid</button>
-        </div>
-        <div class="row mini-row">
-          <span class="lbl">Frame</span>
-          <div class="seg small" id="framePicker">
-            <button data-frame="black">Black</button>
-            <button data-frame="white">White</button>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>Caption</h2>
-        <input id="capTitle" type="text" maxlength="36" placeholder="Big title" aria-label="Title">
-        <input id="capTag" type="text" maxlength="48" placeholder="Tagline (small)" aria-label="Tagline">
-        <div id="presetChips" class="chips">
-          <button data-preset="0">Sunset Heist</button>
-          <button data-preset="1">Neon Getaway</button>
-          <button data-preset="2">Boulevard Queen</button>
-          <button data-preset="3">Last Ride Out</button>
-          <button data-preset="4">Midnight Run</button>
-          <button data-preset="5">Palm City Limits</button>
-        </div>
-        <div class="row mini-row">
-          <span class="lbl">Font</span>
-          <div class="seg small" id="fontPicker">
-            <button data-font="anton">Anton</button>
-            <button data-font="bebas">Bebas</button>
-          </div>
-          <span class="lbl">Fill</span>
-          <div class="swatches" id="fillPicker">
-            <button data-fill="white" class="sw sw-white" title="White"></button>
-            <button data-fill="sunset" class="sw sw-sunset" title="Sunset gradient"></button>
-            <button data-fill="neon" class="sw sw-neon" title="Neon gradient"></button>
-            <button data-fill="gold" class="sw sw-gold" title="Gold gradient"></button>
-          </div>
-        </div>
-        <label class="slider">Size <input id="capScale" type="range" min="0.5" max="1.6" step="0.01" value="1"></label>
-        <label class="slider">Spacing <input id="capTracking" type="range" min="0" max="0.12" step="0.005" value="0.02"></label>
-        <label class="slider">Outline <input id="capOutline" type="range" min="0" max="2" step="0.05" value="1"></label>
-        <label class="check"><input id="capShadow" type="checkbox" checked> Drop shadow</label>
-      </section>
-
-      <section>
-        <h2>Colour grade</h2>
-        <div class="grade-row" id="gradePicker">
-          <button data-grade="sunset" class="grade g-sunset">Sunset</button>
-          <button data-grade="neon" class="grade g-neon">Neon</button>
-          <button data-grade="vice" class="grade g-vice">Vice City</button>
-        </div>
-        <label class="slider">Intensity <input id="intensity" type="range" min="0" max="1" step="0.01" value="0.8"> <span id="intensityVal" class="val">80%</span></label>
-      </section>
-
-      <p class="hint">How it works: add a photo &rarr; pick a layout &rarr; drag panels to frame them &rarr; type a caption &rarr; Export PNG. Offline, in your browser.</p>
-    </aside>
-
-    <main id="stage">
-      <div id="previewWrap">
-        <canvas id="preview" width="1920" height="1080" aria-label="Cover preview"></canvas>
-      </div>
-      <div id="panelBar">
-        <span id="panelLabel" class="panel-label">Panel 1 / 4</span>
-        <select id="panelPhoto" aria-label="Photo in selected panel"></select>
-        <label class="slider compact">Zoom <input id="panelZoom" type="range" min="1" max="3" step="0.01" value="1.06"> <span id="zoomVal" class="val">1.06&times;</span></label>
-        <label class="slider compact">Pan&nbsp;X <input id="panelPanX" type="range" min="-1" max="1" step="0.01" value="0"></label>
-        <label class="slider compact">Pan&nbsp;Y <input id="panelPanY" type="range" min="-1" max="1" step="0.01" value="0"></label>
-        <button id="flipBtn" class="btn small-btn" title="Mirror the photo">Flip</button>
-        <button id="resetBtn" class="btn small-btn" title="Reset crop">Reset</button>
-        <button id="fillAllBtn" class="btn small-btn" title="Use this photo in every panel">Use in all</button>
-      </div>
-      <div id="status" role="status"></div>
-    </main>
+<header id="topbar">
+  <div class="brand">
+    <span class="brand-main">VICE COVER</span>
+    <span class="brand-sub">multi-panel poster maker</span>
   </div>
+  <div class="seg" id="sizePicker">
+    <button type="button" data-size="1080x1080">1:1<small>1080×1080</small></button>
+    <button type="button" data-size="1080x1350">4:5<small>1080×1350</small></button>
+    <button type="button" data-size="1920x1080">16:9<small>1920×1080</small></button>
+  </div>
+  <div class="top-actions">
+    <button id="shuffleBtn" class="ghost" type="button">Shuffle</button>
+    <button id="exportBtn" class="cta" type="button">Export PNG</button>
+  </div>
+</header>
+
+<div id="workspace">
+  <aside id="sidebar">
+
+    <section>
+      <h2>Photos</h2>
+      <label class="btn file-label" for="fileInput">Add photos…
+        <input id="fileInput" type="file" accept="image/*" multiple hidden>
+      </label>
+      <div class="sample-row">
+        <button id="sample-boulevard" class="btn" type="button">Sample: Boulevard</button>
+        <button id="sample-pier" class="btn" type="button">Sample: Pier</button>
+      </div>
+      <div id="thumbs" class="thumbs"></div>
+      <p id="photoEmpty" class="note">No photos yet — add your own or load a sample. Nothing leaves your device.</p>
+    </section>
+
+    <section>
+      <h2>Layout</h2>
+      <div class="layout-grid" id="layoutPicker">
+        <button type="button" data-layout="full"><span class="ico ico-full"><i></i></span>Full</button>
+        <button type="button" data-layout="split2"><span class="ico ico-split"><i></i><i></i></span>Split</button>
+        <button type="button" data-layout="strip3"><span class="ico ico-strip"><i></i><i></i><i></i></span>Strip</button>
+        <button type="button" data-layout="grid4"><span class="ico ico-grid"><i></i><i></i><i></i><i></i></span>Grid</button>
+      </div>
+      <div class="seg small" id="framePicker">
+        <button type="button" data-frame="black">Black frame</button>
+        <button type="button" data-frame="white">White frame</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Caption</h2>
+      <input id="capTitle" maxlength="36" placeholder="Big title" autocomplete="off" spellcheck="false">
+      <input id="capTag" maxlength="48" placeholder="Tagline (small)" autocomplete="off" spellcheck="false">
+      <div id="presetChips" class="chips">
+        <button type="button" data-preset="0">Sunset Heist</button>
+        <button type="button" data-preset="1">Neon Getaway</button>
+        <button type="button" data-preset="2">Boulevard Queen</button>
+        <button type="button" data-preset="3">Last Ride Out</button>
+        <button type="button" data-preset="4">Midnight Run</button>
+        <button type="button" data-preset="5">Palm City Limits</button>
+      </div>
+      <div class="seg small" id="fontPicker">
+        <button type="button" data-font="anton">Anton</button>
+        <button type="button" data-font="bebas">Bebas Neue</button>
+      </div>
+      <div class="swatches" id="fillPicker">
+        <button type="button" data-fill="white" class="sw sw-white" title="White fill"></button>
+        <button type="button" data-fill="sunset" class="sw sw-sunset" title="Sunset gradient"></button>
+        <button type="button" data-fill="neon" class="sw sw-neon" title="Neon gradient"></button>
+        <button type="button" data-fill="gold" class="sw sw-gold" title="Gold gradient"></button>
+      </div>
+      <div class="slider">
+        <label for="capScale">Size</label>
+        <input id="capScale" type="range" min="0.5" max="1.6" step="0.01" value="1">
+        <span class="val" id="capScaleVal">1.00</span>
+      </div>
+      <div class="slider">
+        <label for="capTracking">Tracking</label>
+        <input id="capTracking" type="range" min="0" max="0.12" step="0.005" value="0.02">
+        <span class="val" id="capTrackingVal">0.020</span>
+      </div>
+      <div class="slider">
+        <label for="capOutline">Outline</label>
+        <input id="capOutline" type="range" min="0" max="2" step="0.05" value="1">
+        <span class="val" id="capOutlineVal">1.00</span>
+      </div>
+      <label class="check"><input id="capShadow" type="checkbox" checked> Drop shadow</label>
+    </section>
+
+    <section>
+      <h2>Colour grade</h2>
+      <div class="grade-row" id="gradePicker">
+        <button type="button" data-grade="sunset">Sunset</button>
+        <button type="button" data-grade="neon">Neon</button>
+        <button type="button" data-grade="vice">Vice City</button>
+      </div>
+      <div class="slider">
+        <label for="intensity">Intensity</label>
+        <input id="intensity" type="range" min="0" max="1" step="0.01" value="0.8">
+        <span class="val" id="intensityVal">80%</span>
+      </div>
+    </section>
+
+    <p class="hint">How it works: add a photo → pick a layout → drag panels to frame them → type a caption → Export PNG. Offline, in your browser.</p>
+  </aside>
+
+  <main id="stage">
+    <div id="previewWrap">
+      <canvas id="preview" width="1920" height="1080"></canvas>
+    </div>
+    <div id="panelBar">
+      <span id="panelLabel">Panel 1</span>
+      <select id="panelPhoto" title="Photo in this panel"></select>
+      <div class="slider">
+        <label for="panelZoom">Zoom</label>
+        <input id="panelZoom" type="range" min="1" max="3" step="0.01" value="1.06">
+        <span class="val" id="zoomVal">1.06×</span>
+      </div>
+      <div class="slider">
+        <label for="panelPanX">Pan X</label>
+        <input id="panelPanX" type="range" min="-1" max="1" step="0.01" value="0">
+      </div>
+      <div class="slider">
+        <label for="panelPanY">Pan Y</label>
+        <input id="panelPanY" type="range" min="-1" max="1" step="0.01" value="0">
+      </div>
+      <button id="flipBtn" class="btn" type="button">Flip</button>
+      <button id="resetBtn" class="btn" type="button">Reset</button>
+      <button id="fillAllBtn" class="btn" type="button">Use in all</button>
+    </div>
+    <div id="status"></div>
+  </main>
 </div>
 
 <script src="src/layouts.js"></script>
