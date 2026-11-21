@@ -1,4 +1,6 @@
 // Vice Cover — multi-panel poster maker (make.fun entry gta6-cover-art-01).
+// Running it assembles the review bundle: the static app, its screenshots and
+// the dossier manifest that describes them.
 //
 // This is my build of an offline, browser-only cover-art studio: it takes the
 // user's own photos, lays them out in GTA-style multi-panel posters (full,

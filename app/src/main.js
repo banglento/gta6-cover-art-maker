@@ -490,6 +490,8 @@
   }
 
   /* ---------- boot ---------- */
+  /* Startup: wires the controls, applies any ?shot= params, loads fonts and
+     sample photos, then paints the first frame and signals readiness. */
   function boot() {
     bindControls();
     var params = applyParams();
